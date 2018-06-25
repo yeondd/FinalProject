@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Random</string>
+    <string name="title_activity_normal_random">normalRandom</string>
+</resources>

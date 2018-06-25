@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/normalRandom"
+        android:text="돌려돌려 돌림판"
+        android:textSize="30dp"/>
+
+    <Button
+        android:id="@+id/normalRandom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/selectRandom"
+        android:layout_centerInParent="true"
+        android:text="완전랜덤" />
+
+    <Button
+        android:id="@+id/selectRandom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="선택랜덤" />
+
+    <Button
+        android:id="@+id/customRandom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/selectRandom"
+        android:layout_centerInParent="true"
+        android:text="커스텀랜덤" />
+</RelativeLayout>
