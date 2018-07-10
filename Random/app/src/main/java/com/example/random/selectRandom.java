@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -13,14 +14,16 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class selectRandom extends AppCompatActivity implements ListViewAdapter.ListBtnClickListener {
+    ListView listview;
+    ListView listview2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_random);
 
-        // id가져오기
-        final ListView listview = (ListView) findViewById(R.id.listView1);
-        ListView listview2 = (ListView) findViewById(R.id.listView2);
+        // id 가져오기
+        listview =  (ListView) findViewById(R.id.listView1);
+        listview2 = (ListView) findViewById(R.id.listView2);
         Button start = (Button) findViewById(R.id.startSelect);
         Button refresh = (Button) findViewById(R.id.refresh);
 
@@ -29,7 +32,7 @@ public class selectRandom extends AppCompatActivity implements ListViewAdapter.L
 
 ////////////////////////////////////////////////////////////////////////////
         // 원래 리스트 - 랜덤에 포함될 음식점 리스트(item, adapter)
-        ArrayList<ListViewItem> item = new ArrayList<ListViewItem>();
+        final ArrayList<ListViewItem> item = new ArrayList<ListViewItem>();
 
         ListViewItem temp = new ListViewItem(res.getDrawable(R.drawable.icon01),"노는게", "제일좋아","www.aaa.com");
         item.add(temp);
@@ -44,8 +47,18 @@ public class selectRandom extends AppCompatActivity implements ListViewAdapter.L
         listview.setAdapter(adapter);
 
 ////////////////////////////////////////////////////////////////////////////
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ListViewItem te = (ListViewItem) adapter.getItem(i);
+                Log.v("test", "안녕");
+                Toast.makeText(getApplicationContext(), te.getData(0), Toast.LENGTH_LONG).show();
+            }
+        });
+
+////////////////////////////////////////////////////////////////////////////
         // 랜덤에서 제외할 음식점 리스트(item2, adapter2)
-        ArrayList<ListViewItem> item2 = new ArrayList<ListViewItem>();
+        final ArrayList<ListViewItem> item2 = new ArrayList<ListViewItem>();
 
         ListViewItem temp2 = new ListViewItem(res.getDrawable(R.drawable.icon01),"노는게", "제일좋아","www.aaa.com");
         item2.add(temp2);
@@ -56,7 +69,9 @@ public class selectRandom extends AppCompatActivity implements ListViewAdapter.L
         ListViewAdapter adapter2 = new ListViewAdapter(this, R.layout.list_item, item, this);
         listview2.setAdapter(adapter2);
 
-        // 랜덤 실행으로 이동
+        adapter2.addItem(res.getDrawable(R.drawable.icon01),"노는게", "제일좋아");
+
+       // 랜덤 실행으로 이동
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,25 +80,19 @@ public class selectRandom extends AppCompatActivity implements ListViewAdapter.L
             }
         });
     }
+
     @Override
     public void onListBtnClick(int position, View v) {
-        ListView listview = (ListView) findViewById(R.id.listView1);
-        View parentView = (View)v.getParent();
-        String p = (String) parentView.getTag();
-
         Button b = (Button) v;
         String buttonText = b.getText().toString();
-/*
+
         if(buttonText.equals("+")) {
-            Toast.makeText(this, "plus 선택됨", Toast.LENGTH_LONG).show();
+            Toast.makeText(this,  position + ": plus 선택됨", Toast.LENGTH_LONG).show();
         }
         else if(buttonText.equals("-")) {
-            int check = listview.getCheckedItemPosition();
-            Toast.makeText(this, p + ": minus 선택됨", Toast.LENGTH_LONG).show();
-
+            Toast.makeText(this, position + ": minus 선택됨", Toast.LENGTH_LONG).show();
         }
         else
             Toast.makeText(this, "뭐가 선택된거지...? -> " + buttonText , Toast.LENGTH_LONG).show();
-            */
     }
 }

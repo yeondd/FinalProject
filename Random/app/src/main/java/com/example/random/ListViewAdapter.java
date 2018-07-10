@@ -1,6 +1,7 @@
 package com.example.random;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +27,10 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
     private Button plus;
     private Button minus;
 
+    private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>();
+
     public interface ListBtnClickListener {
-        void onListBtnClick(int position, View v) ;
-    }
+        void onListBtnClick(int position, View v) ;}
 
     // 생성자로부터 전달된 resource id 값을 저장.
     int resourceId ;
@@ -38,12 +40,15 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
     // ListViewBtnAdapter 생성자. 마지막에 ListBtnClickListener 추가.
     ListViewAdapter(Context context, int resource, ArrayList<ListViewItem> list, ListBtnClickListener clickListener) {
         super(context, resource, list) ;
-
         // resource id 값 복사. (super로 전달된 resource를 참조할 방법이 없음.)
         this.resourceId = resource ;
         this.listBtnClickListener = clickListener ;
     }
-
+/*
+    public Object getItem(int position){
+        return items.get(position);
+    }
+*/
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final int pos = position ;
@@ -70,21 +75,11 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
 
         plus = (Button) convertView.findViewById(R.id.plus);
         plus.setTag(position);
-        plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, pos + " - plus", Toast.LENGTH_SHORT).show();
-            }
-        });
+        //plus.setOnClickListener(this);
 
         minus = (Button) convertView.findViewById(R.id.minus);
         minus.setTag(position);
-        minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, pos + " - minus", Toast.LENGTH_SHORT).show();
-            }
-        });
+        //minus.setOnClickListener(this);
 
         convertView.setTag(position);
 
@@ -97,6 +92,19 @@ public class ListViewAdapter extends ArrayAdapter implements View.OnClickListene
         }
     }
 
+    public void addItem(Drawable icon, String title, String desc) {
+        ListViewItem item = new ListViewItem();
+
+        String[] contexts = new String[3];
+        contexts[0] = title;
+        contexts[1] = desc;
+        contexts[2] = "";
+
+        item.setIcon(icon);
+        item.setData(contexts);
+
+        listViewItemList.add(item);
+    }
 }
 /*
     private Context mContext;

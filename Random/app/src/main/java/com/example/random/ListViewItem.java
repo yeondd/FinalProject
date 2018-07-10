@@ -3,6 +3,8 @@ package com.example.random;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import java.util.List;
+
 /**
  * Created by 수연 on 2018-05-17.
  */
@@ -11,6 +13,10 @@ public class ListViewItem {
     private Drawable mIcon;
     private String[] mData;
     private boolean mSelectable = true;
+
+    public ListViewItem(){
+
+    }
 
     //파라메타값이 배열로된것을 사용함
     public ListViewItem(Drawable icon, String[] obj){

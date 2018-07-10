@@ -57,6 +57,7 @@ public class ListItemView extends LinearLayout implements View.OnClickListener  
         plus.setOnClickListener(this);
 
         minus = (Button) findViewById(R.id.minus);
+        //minus.setOnClickListener(this);
     }
 
     @Override
